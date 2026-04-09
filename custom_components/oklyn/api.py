@@ -1,19 +1,22 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from typing import Any
 
 import aiohttp
 
 from .const import API_BASE
 
+_LOGGER = logging.getLogger(__name__)
+
 
 class OklynApiError(Exception):
-    """General API error."""
+    pass
 
 
 class OklynAuthError(OklynApiError):
-    """Authentication error."""
+    pass
 
 
 class OklynClient:
@@ -31,13 +34,7 @@ class OklynClient:
 
     async def _request(self, method: str, path: str, json_data: dict[str, Any] | None = None) -> dict[str, Any]:
         try:
-            async with self._session.request(
-                method,
-                self._url(path),
-                headers=self.headers,
-                json=json_data,
-                timeout=aiohttp.ClientTimeout(total=20),
-            ) as resp:
+            async with self._session.request(method, self._url(path), headers=self.headers, json=json_data, timeout=aiohttp.ClientTimeout(total=20)) as resp:
                 if resp.status in (401, 403):
                     raise OklynAuthError(f"Authentication failed: {resp.status}")
                 if resp.status >= 400:

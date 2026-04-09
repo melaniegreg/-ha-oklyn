@@ -19,6 +19,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
 
 class OklynAuxConditionalSwitch(OklynCoordinatorEntity, SwitchEntity):
+    _attr_has_entity_name = True
     _attr_icon = "mdi:toggle-switch-variant"
 
     def __init__(self, coordinator, config_entry, client, endpoint: str, name: str) -> None:
@@ -42,10 +43,7 @@ class OklynAuxConditionalSwitch(OklynCoordinatorEntity, SwitchEntity):
     @property
     def extra_state_attributes(self):
         payload = self.coordinator.data.get(self.endpoint, {})
-        return {
-            "command": payload.get("aux") or payload.get("aux2"),
-            "changed_at": payload.get("changed_at"),
-        }
+        return {"command": payload.get("aux") or payload.get("aux2"), "changed_at": payload.get("changed_at")}
 
     async def async_turn_on(self, **kwargs):
         if self.endpoint == "aux2":

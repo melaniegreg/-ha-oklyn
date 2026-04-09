@@ -18,6 +18,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
 
 class OklynPumpModeSelect(OklynCoordinatorEntity, SelectEntity):
+    _attr_has_entity_name = True
     _attr_name = "Pump Mode"
     _attr_options = PUMP_OPTIONS
     _attr_icon = "mdi:pump"
@@ -29,15 +30,13 @@ class OklynPumpModeSelect(OklynCoordinatorEntity, SelectEntity):
 
     @property
     def current_option(self):
-        return self.coordinator.data.get("pump", {}).get("pump")
+        value = self.coordinator.data.get("pump", {}).get("pump")
+        return value if value in PUMP_OPTIONS else None
 
     @property
     def extra_state_attributes(self):
         payload = self.coordinator.data.get("pump", {})
-        return {
-            "status": payload.get("status"),
-            "changed_at": payload.get("changed_at"),
-        }
+        return {"status": payload.get("status"), "changed_at": payload.get("changed_at")}
 
     async def async_select_option(self, option: str) -> None:
         await self.client.set_pump(option)

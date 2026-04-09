@@ -19,6 +19,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
 
 class OklynPumpRunningBinarySensor(OklynCoordinatorEntity, BinarySensorEntity):
+    _attr_has_entity_name = True
     _attr_name = "Pump Running"
     _attr_icon = "mdi:pump"
 
@@ -33,13 +34,11 @@ class OklynPumpRunningBinarySensor(OklynCoordinatorEntity, BinarySensorEntity):
     @property
     def extra_state_attributes(self):
         payload = self.coordinator.data.get("pump", {})
-        return {
-            "mode": payload.get("pump"),
-            "changed_at": payload.get("changed_at"),
-        }
+        return {"mode": payload.get("pump"), "changed_at": payload.get("changed_at")}
 
 
 class OklynAuxActiveBinarySensor(OklynCoordinatorEntity, BinarySensorEntity):
+    _attr_has_entity_name = True
     _attr_icon = "mdi:flash-outline"
 
     def __init__(self, coordinator, config_entry, endpoint: str, name: str) -> None:
@@ -55,7 +54,4 @@ class OklynAuxActiveBinarySensor(OklynCoordinatorEntity, BinarySensorEntity):
     @property
     def extra_state_attributes(self):
         payload = self.coordinator.data.get(self.endpoint, {})
-        return {
-            "mode": payload.get("aux") or payload.get("aux2"),
-            "changed_at": payload.get("changed_at"),
-        }
+        return {"mode": payload.get("aux") or payload.get("aux2"), "changed_at": payload.get("changed_at")}

@@ -44,3 +44,13 @@ A writable switch is only exposed for Aux 1 when the returned command is `on` or
 - `custom_components/oklyn/` Home Assistant integration
 - `hacs.json` HACS metadata
 - `brand/` icon assets
+
+
+## Version 3
+
+This package includes the latest compatibility fixes for Home Assistant 2026.x, including the OptionsFlow and DataUpdateCoordinator updates.
+
+
+## Icon
+
+The integration icon is included at `custom_components/oklyn/brand/icon.png` and `brand/icon.png`.

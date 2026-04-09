@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import logging
 from datetime import timedelta
 from typing import Any
-import logging
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -16,12 +16,7 @@ MEASURES = ("ph", "orp", "water", "air", "salt")
 
 class OklynDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     def __init__(self, hass: HomeAssistant, client: OklynClient, scan_interval: int) -> None:
-        super().__init__(
-            hass,
-            _LOGGER,
-            name=DOMAIN,
-            update_interval=timedelta(seconds=scan_interval),
-        )
+        super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=timedelta(seconds=scan_interval))
         self.client = client
 
     async def _async_update_data(self) -> dict[str, Any]:

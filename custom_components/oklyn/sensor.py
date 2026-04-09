@@ -45,11 +45,7 @@ class OklynMeasureSensor(OklynCoordinatorEntity, SensorEntity):
     @property
     def extra_state_attributes(self):
         payload = self.coordinator.data["measures"].get(self.entity_description.key, {})
-        return {
-            "recorded": payload.get("recorded"),
-            "status": payload.get("status"),
-            "value_raw": payload.get("value_raw"),
-        }
+        return {"recorded": payload.get("recorded"), "status": payload.get("status"), "value_raw": payload.get("value_raw")}
 
 
 class OklynAuxModeSensor(OklynCoordinatorEntity, SensorEntity):
@@ -69,7 +65,4 @@ class OklynAuxModeSensor(OklynCoordinatorEntity, SensorEntity):
     @property
     def extra_state_attributes(self):
         payload = self.coordinator.data.get(self.endpoint, {})
-        return {
-            "status": payload.get("status"),
-            "changed_at": payload.get("changed_at"),
-        }
+        return {"status": payload.get("status"), "changed_at": payload.get("changed_at")}
