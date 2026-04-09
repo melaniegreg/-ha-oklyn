@@ -1,0 +1,12 @@
+{
+  "domain": "oklyn",
+  "name": "Oklyn",
+  "codeowners": ["@local-user"],
+  "config_flow": true,
+  "documentation": "https://github.com/example/oklyn",
+  "issue_tracker": "https://github.com/example/oklyn/issues",
+  "iot_class": "cloud_polling",
+  "loggers": ["custom_components.oklyn"],
+  "requirements": [],
+  "version": "0.1.0"
+}

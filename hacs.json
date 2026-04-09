@@ -1,0 +1,9 @@
+{
+  "name": "Oklyn",
+  "content_in_root": false,
+  "domains": ["oklyn"],
+  "country": ["FR"],
+  "homeassistant": ">=2025.1.0",
+  "filename": false,
+  "render_readme": true
+}
